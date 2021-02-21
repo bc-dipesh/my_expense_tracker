@@ -5,7 +5,6 @@ from django.utils import timezone
 
 from .models import Transaction
 
-
 def index(request):
     transactions = Transaction.objects.all()
     incomes = [transaction.amount for transaction in transactions if transaction.type == 'income']
