@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+</head>
+
+<body>
+<h1>Expense Tracker</h1>
+
+<h2>Your Balance</h2>
+<p>Rs.{{ remaining_balance }}</p>
+<h3>Income</h3>
+<p>Rs.{{ total_income }}</p>
+<h3>Expense</h3>
+<p>Rs.{{ total_expense }}</p>
+<h3>History</h3>
+<p>{% for transaction in transactions %}</p>
+<p>{{ transaction }}</p>
+{% endfor %}
+<h3>Add new transaction</h3>
+
+<form action="{% url 'expense_tracker:add_transaction' %}" method="POST">
+    {% csrf_token %}
+    <label for="transaction_name">Name
+        <input type="text" id="transaction_name" name="transaction_name" placeholder="Enter transaction name...">
+    </label>
+    <br>
+    <label for="transaction_type_expense">
+        <input type="radio" id="transaction_type_expense" name="transaction_type" value="expense">Expense
+    </label>
+
+    <label for="transaction_type_income">
+        <input type="radio" id="transaction_type_income" name="transaction_type" value="income">Income
+    </label>
+    <br>
+    <label for="transaction_amount">Amount
+        <span>(negative - expense, positive - income)</span>
+        <input type="number" id="transaction_amount" name="transaction_amount"
+               placeholder="Enter transaction amount...">
+    </label>
+    <input type="submit" name="add_transaction" value="Add Transaction">
+</form>
+</body>
+
+</html>
